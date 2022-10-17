@@ -20,7 +20,7 @@ export class AuthHelper {
     return this.jwt.sign({
       id: user['_id'],
       email: user.email,
-      role: user.role,
+      roles: user.roles,
     });
   }
 

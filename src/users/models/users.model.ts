@@ -9,7 +9,7 @@ export class UserModel {
   email: string;
 
   @Prop({ required: true, trim: true })
-  role: string;
+  roles: string[];
 
   @Prop({ required: true, trim: true })
   password: string;

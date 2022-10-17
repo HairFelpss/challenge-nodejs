@@ -5,7 +5,7 @@ export class User {
   email: string;
 
   @ApiProperty()
-  role: string;
+  roles: string[];
 
   @ApiProperty()
   _id: string;
