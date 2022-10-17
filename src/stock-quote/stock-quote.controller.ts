@@ -27,11 +27,6 @@ import { ApiException } from '@nanogiants/nestjs-swagger-api-exception-decorator
 export class StockQuoteController {
   constructor(private readonly stockQuoteService: StockQuoteService) {}
 
-  @Post()
-  create(@Body() createStockQuoteDto: CreateStockQuoteDto) {
-    return this.stockQuoteService.create(createStockQuoteDto);
-  }
-
   @Public()
   @Get('history')
   findAll() {
@@ -61,18 +56,5 @@ export class StockQuoteController {
       await this.stockQuoteService.findOne(param, userId);
 
     return { name, symbol, open, high, low, close, userId };
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateStockQuoteDto: UpdateStockQuoteDto,
-  ) {
-    return this.stockQuoteService.update(+id, updateStockQuoteDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.stockQuoteService.remove(+id);
   }
 }

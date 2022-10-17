@@ -2,8 +2,7 @@ import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { CreateStockQuoteDto } from './dto/create-stock-quote.dto';
-import { UpdateStockQuoteDto } from './dto/update-stock-quote.dto';
-import { StockQuoteEntity } from './entities/stock-quote.entity';
+
 import { StockQuoteModel } from './models/stock-quote.model';
 import { StockQuoteRepository } from './stock-quote.repository';
 
@@ -14,10 +13,6 @@ export class StockQuoteService {
     private config: ConfigService,
     private readonly stockQuoteRepository: StockQuoteRepository,
   ) {}
-
-  create(createStockQuoteDto: CreateStockQuoteDto) {
-    return 'This action adds a new stockQuote';
-  }
 
   findAll() {
     return this.stockQuoteRepository.getStockQuotes({});
@@ -47,13 +42,5 @@ export class StockQuoteService {
       userId,
       ...symbols[0],
     });
-  }
-
-  update(id: number, updateStockQuoteDto: UpdateStockQuoteDto) {
-    return `This action updates a #${id} stockQuote`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} stockQuote`;
   }
 }
