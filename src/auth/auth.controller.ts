@@ -10,11 +10,11 @@ import { ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { ApiException } from '@nanogiants/nestjs-swagger-api-exception-decorator';
 
-import {
-  Public,
-  GetCurrentUserId,
-  GetCurrentUser,
-} from 'src/common/decorators';
+import { Public } from 'src/common/decorators/public.decorator';
+
+import { GetCurrentUserId } from 'src/common/decorators/get-current-user-id.decorator';
+
+import { GetCurrentUser } from 'src/common/decorators/get-current-user.decorator';
 
 import { RefreshTokenGuard } from 'src/common/guards/refresh-token.guard';
 

@@ -41,10 +41,13 @@ export class UsersService {
     return users;
   }
 
-  async findOne(email: string): Promise<UserModel> {
+  async findOne(param: string): Promise<UserModel> {
+    console.log({
+      [param]: param,
+    });
     const user = await this.usersRepository.getUser(
       {
-        email,
+        [param]: param,
       },
       ['email', 'role', '_id'],
     );

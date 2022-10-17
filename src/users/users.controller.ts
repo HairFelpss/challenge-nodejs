@@ -28,7 +28,7 @@ import { UserNotAuthorizedException } from 'src/auth/exceptions/unauthorized-exc
 import { PasswordInvalidException } from './exceptions/password-invalid-exception';
 import { UserDontExistException } from './exceptions/user-dont-exist-exceptions';
 import { AccessTokenGuard } from 'src/common/guards/access-token.guard';
-import { Public } from 'src/common/decorators';
+import { Public } from 'src/common/decorators/public.decorator';
 
 @ApiTags('Users')
 @Controller('users')
