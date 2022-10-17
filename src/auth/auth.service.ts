@@ -26,6 +26,7 @@ export class AuthService {
       'password',
       'email',
       '_id',
+      'role',
     ]);
 
     if (!user) throw new UserDontExistException();
@@ -37,7 +38,7 @@ export class AuthService {
 
     if (!passwordMatches) throw new PasswordInvalidException();
 
-    const tokens = await this.getTokens(user['_id'], user.email);
+    const tokens = await this.getTokens(user['_id'], user.email, user.role);
     await this.updateRtHash(user['_id'], tokens.refresh_token);
 
     return tokens;
@@ -66,6 +67,7 @@ export class AuthService {
       'password',
       'email',
       '_id',
+      'role',
     ]);
 
     if (!user) throw new UserDontExistException();
@@ -73,7 +75,7 @@ export class AuthService {
     const rtMatches = await argon.verify(user.hashedRt, rt);
     if (!rtMatches) throw new UserNotAuthorizedException();
 
-    const tokens = await this.getTokens(user['_id'], user.email);
+    const tokens = await this.getTokens(user['_id'], user.email, user.role);
     await this.updateRtHash(user['_id'], tokens.refresh_token);
 
     return tokens;
@@ -91,10 +93,15 @@ export class AuthService {
     );
   }
 
-  async getTokens(userId: string, email: string): Promise<Tokens> {
+  async getTokens(
+    userId: string,
+    email: string,
+    role: string,
+  ): Promise<Tokens> {
     const jwtPayload: JwtPayload = {
       sub: userId,
       email: email,
+      role,
     };
 
     const [access_token, refresh_token] = await Promise.all([

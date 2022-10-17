@@ -20,14 +20,14 @@ import { UserNotAuthorizedException } from 'src/auth/exceptions/unauthorized-exc
 export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
   async create(createUserDto: CreateUserDto): Promise<UserRegister> {
-    const { email, roles } = createUserDto;
+    const { email, role } = createUserDto;
 
     const password = await argon.hash(new Date().toString());
 
     const createdUser = await this.usersRepository.createUser({
       email,
       password,
-      roles,
+      role,
     });
 
     if (!createdUser) throw new UserExistsException();
@@ -36,7 +36,7 @@ export class UsersService {
   }
 
   findAll(): Promise<User[]> {
-    const users = this.usersRepository.getUsers({}, ['email', 'roles', '_id']);
+    const users = this.usersRepository.getUsers({}, ['email', 'role', '_id']);
 
     if (!users) throw new UserNotAuthorizedException();
 
@@ -44,14 +44,11 @@ export class UsersService {
   }
 
   async findOne(param: string): Promise<UserModel> {
-    console.log({
-      [param]: param,
-    });
     const user = await this.usersRepository.getUser(
       {
         [param]: param,
       },
-      ['email', 'roles', '_id'],
+      ['email', 'role', '_id'],
     );
 
     if (!user) throw new UserDontExistException();
@@ -63,10 +60,8 @@ export class UsersService {
     const user = await this.usersRepository.getUserAndUpdate(
       { email },
       updateUser,
-      ['email', 'roles', '_id'],
+      ['email', 'role', '_id'],
     );
-
-    console.log('user ====> ', user);
 
     if (!user) throw new UserDontExistException();
 
