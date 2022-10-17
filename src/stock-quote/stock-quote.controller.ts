@@ -28,7 +28,7 @@ import { AccessTokenGuard } from 'src/common/guards/access-token.guard';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 
 @ApiTags('Stock Quote')
-@Controller('stock-quote')
+@Controller()
 export class StockQuoteController {
   constructor(private readonly stockQuoteService: StockQuoteService) {}
 
@@ -55,13 +55,15 @@ export class StockQuoteController {
     description: 'Stock quote informations saved!',
   })
   @HttpCode(HttpStatus.OK)
-  @Get(':stock_code/:userId')
+  @Get('stock-quote/:stock_code/:userId')
   async findOne(
     @Param('stock_code') param: string,
     @Param('userId') userId: string,
   ): Promise<StockQuoteEntity> {
+    const symbols = await this.stockQuoteService.findOne(param);
+
     const { name, symbol, open, high, low, close } =
-      await this.stockQuoteService.findOne(param, userId);
+      await this.stockQuoteService.create(userId, symbols);
 
     return { name, symbol, open, high, low, close, userId };
   }

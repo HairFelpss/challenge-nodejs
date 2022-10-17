@@ -1,9 +1,9 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { CreateStockQuoteResponseDto } from './dto/create-stock-quote-response.dto';
 import { CreateStockQuoteDto } from './dto/create-stock-quote.dto';
 
-import { StockQuoteModel } from './models/stock-quote.model';
 import { StockQuoteRepository } from './stock-quote.repository';
 
 @Injectable()
@@ -13,6 +13,13 @@ export class StockQuoteService {
     private config: ConfigService,
     private readonly stockQuoteRepository: StockQuoteRepository,
   ) {}
+
+  create(userId: string, symbols: CreateStockQuoteResponseDto) {
+    return this.stockQuoteRepository.createStockQuote({
+      userId,
+      ...symbols,
+    });
+  }
 
   findAll() {
     return this.stockQuoteRepository.getStockQuotes({});
@@ -27,7 +34,7 @@ export class StockQuoteService {
     }));
   }
 
-  async findOne(stock_code: string, userId: string): Promise<StockQuoteModel> {
+  async findOne(stock_code: string): Promise<CreateStockQuoteResponseDto> {
     const response = await this.httpService
       .get(
         `${this.config.get<string>(
@@ -38,9 +45,6 @@ export class StockQuoteService {
 
     const { symbols }: CreateStockQuoteDto = response.data;
 
-    return this.stockQuoteRepository.createStockQuote({
-      userId,
-      ...symbols[0],
-    });
+    return symbols[0];
   }
 }

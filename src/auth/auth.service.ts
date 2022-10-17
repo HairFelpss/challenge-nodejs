@@ -4,10 +4,10 @@ import { ConfigService } from '@nestjs/config';
 import * as argon from 'argon2';
 
 import { AuthenticateDto } from './dto/authenticate.dto';
-import { UserNotAuthorizedException } from './exceptions/unauthorized-exceptions';
+import { UserNotAuthorizedException } from './exceptions/user-not-authorized.exception';
 import { AuthHelper } from './helpers/auth.helper';
 import { JwtPayload } from './types/jwtPayload.type';
-import { Tokens } from './types/tokens.type';
+import { AuthenticateResponseDto } from './dto/authenticate-response.dto';
 
 import { PasswordInvalidException } from 'src/users/exceptions/password-invalid-exception';
 import { UserDontExistException } from 'src/users/exceptions/user-dont-exist-exceptions';
@@ -21,7 +21,10 @@ export class AuthService {
     private config: ConfigService,
   ) {}
 
-  async signinLocal({ email, password }: AuthenticateDto): Promise<Tokens> {
+  async login({
+    email,
+    password,
+  }: AuthenticateDto): Promise<AuthenticateResponseDto> {
     const user = await this.usersRepository.getUser({ email }, [
       'password',
       'email',
@@ -62,7 +65,10 @@ export class AuthService {
     return true;
   }
 
-  async refreshTokens(email: string, rt: string): Promise<Tokens> {
+  async refreshTokens(
+    email: string,
+    rt: string,
+  ): Promise<AuthenticateResponseDto> {
     const user = await this.usersRepository.getUser({ email }, [
       'password',
       'email',
@@ -97,7 +103,7 @@ export class AuthService {
     userId: string,
     email: string,
     role: string,
-  ): Promise<Tokens> {
+  ): Promise<AuthenticateResponseDto> {
     const jwtPayload: JwtPayload = {
       sub: userId,
       email: email,

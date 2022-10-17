@@ -14,9 +14,9 @@ import { AuthService } from './auth.service';
 import { AuthenticateDto } from './dto/authenticate.dto';
 import { RecoverPassworDto } from './dto/recoverPassword.dto';
 
-import { UserNotAuthorizedException } from './exceptions/unauthorized-exceptions';
+import { UserNotAuthorizedException } from './exceptions/user-not-authorized.exception';
 
-import { Tokens } from './types/tokens.type';
+import { AuthenticateResponseDto } from './dto/authenticate-response.dto';
 
 import { Public } from 'src/common/decorators/public.decorator';
 import { GetCurrentUserId } from 'src/common/decorators/get-current-user-id.decorator';
@@ -41,8 +41,8 @@ export class AuthController {
   })
   @HttpCode(HttpStatus.OK)
   @Post('local/signin')
-  signinLocal(@Body() user: AuthenticateDto): Promise<Tokens> {
-    return this.authService.signinLocal(user);
+  signinLocal(@Body() user: AuthenticateDto): Promise<AuthenticateResponseDto> {
+    return this.authService.login(user);
   }
 
   @Post('logout')
@@ -58,7 +58,7 @@ export class AuthController {
   refreshTokens(
     @GetCurrentUserId() userId: string,
     @GetCurrentUser('refreshToken') refreshToken: string,
-  ): Promise<Tokens> {
+  ): Promise<AuthenticateResponseDto> {
     return this.authService.refreshTokens(userId, refreshToken);
   }
 

@@ -29,12 +29,12 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { PasswordInvalidException } from './exceptions/password-invalid-exception';
 import { UserDontExistException } from './exceptions/user-dont-exist-exceptions';
 
-import { UserNotAuthorizedException } from 'src/auth/exceptions/unauthorized-exceptions';
+import { UserNotAuthorizedException } from 'src/auth/exceptions/user-not-authorized.exception';
 import { AccessTokenGuard } from 'src/common/guards/access-token.guard';
 import { Public } from 'src/common/decorators/public.decorator';
 
 @ApiTags('Users')
-@Controller('users')
+@Controller()
 @ApiException(() => UserNotAuthorizedException, {
   description: 'User is not authorized',
 })
@@ -61,7 +61,7 @@ export class UsersController {
     type: [User],
   })
   @ApiException(() => UserNotAuthorizedException)
-  @Get()
+  @Get('users')
   findAll() {
     return this.usersService.findAll();
   }
@@ -74,7 +74,7 @@ export class UsersController {
     type: User,
   })
   @ApiException(() => [UserDontExistException, UserNotAuthorizedException])
-  @Get(':email')
+  @Get('users/:email')
   findOne(@Param('email') email: string) {
     return this.usersService.findOne(email);
   }
@@ -87,7 +87,7 @@ export class UsersController {
     type: User,
   })
   @ApiException(() => [UserDontExistException, UserNotAuthorizedException])
-  @Patch(':email')
+  @Patch('users/:email')
   async update(
     @Param('email') email: string,
     @Body() updateUser: UpdateUserDto,
@@ -102,7 +102,7 @@ export class UsersController {
     description: 'Delete a specific user.',
   })
   @ApiException(() => [UserDontExistException, UserNotAuthorizedException])
-  @Delete(':email')
+  @Delete('users/:email')
   deleteUsers(@Param('email') email: string) {
     return this.usersService.deleteUser(email);
   }

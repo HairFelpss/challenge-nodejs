@@ -14,7 +14,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UserExistsException } from './exceptions/user-exist-exceptions';
 import { UserDontExistException } from './exceptions/user-dont-exist-exceptions';
 
-import { UserNotAuthorizedException } from 'src/auth/exceptions/unauthorized-exceptions';
+import { UserNotAuthorizedException } from 'src/auth/exceptions/user-not-authorized.exception';
 
 @Injectable()
 export class UsersService {
