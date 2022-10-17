@@ -72,7 +72,7 @@ export class UsersService {
   }
 
   async deleteUser(email: string) {
-    const { deletedCount }: { deletedCount: Number } =
+    const { deletedCount }: { deletedCount: number } =
       await this.usersRepository.deleteUser({
         email,
       });
