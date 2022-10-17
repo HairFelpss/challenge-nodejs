@@ -23,6 +23,15 @@ export class StockQuoteService {
     return this.stockQuoteRepository.getStockQuotes({});
   }
 
+  async stats() {
+    const response = await this.stockQuoteRepository.getStockQuotesAgg();
+
+    return response.map((res) => ({
+      stock: res['_id'].stock,
+      times_requested: res['times_requested'],
+    }));
+  }
+
   async findOne(stock_code: string, userId: string): Promise<StockQuoteModel> {
     const response = await this.httpService
       .get(

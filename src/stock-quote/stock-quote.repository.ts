@@ -25,6 +25,21 @@ export class StockQuoteRepository {
     return this.stockQuoteModel.find(query).sort({ date: -1 });
   }
 
+  async getStockQuotesAgg(): Promise<StockQuoteModel[]> {
+    return this.stockQuoteModel
+      .aggregate()
+      .group({
+        _id: {
+          stock: '$symbol',
+        },
+        times_requested: {
+          $sum: 1,
+        },
+      })
+      .sort({ times_requested: -1 })
+      .limit(5);
+  }
+
   async deleteUser(query: object): Promise<any> {
     return this.stockQuoteModel.deleteOne(query);
   }

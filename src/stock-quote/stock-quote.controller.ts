@@ -41,7 +41,7 @@ export class StockQuoteController {
   @Public()
   @Get('stats')
   findAllStats() {
-    return this.stockQuoteService.findAll();
+    return this.stockQuoteService.stats();
   }
 
   @Public()
