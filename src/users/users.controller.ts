@@ -8,12 +8,14 @@ import {
   Delete,
   UseGuards,
 } from '@nestjs/common';
+
 import {
   ApiBearerAuth,
   ApiCreatedResponse,
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
+
 import { ApiException } from '@nanogiants/nestjs-swagger-api-exception-decorator';
 
 import { User } from './entities/user.entity';
@@ -24,9 +26,10 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
-import { UserNotAuthorizedException } from 'src/auth/exceptions/unauthorized-exceptions';
 import { PasswordInvalidException } from './exceptions/password-invalid-exception';
 import { UserDontExistException } from './exceptions/user-dont-exist-exceptions';
+
+import { UserNotAuthorizedException } from 'src/auth/exceptions/unauthorized-exceptions';
 import { AccessTokenGuard } from 'src/common/guards/access-token.guard';
 import { Public } from 'src/common/decorators/public.decorator';
 

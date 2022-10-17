@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNumber, IsDate } from 'class-validator';
+import { IsString, IsNumber } from 'class-validator';
 
 export class CreateStockQuoteResponseDto {
   @ApiProperty()

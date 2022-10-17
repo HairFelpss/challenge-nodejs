@@ -5,7 +5,6 @@ import { Model } from 'mongoose';
 
 import { StockQuoteModel, StockQuotDocument } from './models/stock-quote.model';
 import { CreateStockQuoteResponseDto } from './dto/create-stock-quote-response.dto';
-import { StockQuoteEntity } from './entities/stock-quote.entity';
 
 @Injectable()
 export class StockQuoteRepository {

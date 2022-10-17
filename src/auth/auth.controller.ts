@@ -10,22 +10,20 @@ import { ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { ApiException } from '@nanogiants/nestjs-swagger-api-exception-decorator';
 
-import { Public } from 'src/common/decorators/public.decorator';
-
-import { GetCurrentUserId } from 'src/common/decorators/get-current-user-id.decorator';
-
-import { GetCurrentUser } from 'src/common/decorators/get-current-user.decorator';
-
-import { RefreshTokenGuard } from 'src/common/guards/refresh-token.guard';
-
 import { AuthService } from './auth.service';
 import { AuthenticateDto } from './dto/authenticate.dto';
 import { RecoverPassworDto } from './dto/recoverPassword.dto';
-import { UserDontExistException } from 'src/users/exceptions/user-dont-exist-exceptions';
-import { PasswordInvalidException } from 'src/users/exceptions/password-invalid-exception';
+
 import { UserNotAuthorizedException } from './exceptions/unauthorized-exceptions';
 
 import { Tokens } from './types/tokens.type';
+
+import { Public } from 'src/common/decorators/public.decorator';
+import { GetCurrentUserId } from 'src/common/decorators/get-current-user-id.decorator';
+import { GetCurrentUser } from 'src/common/decorators/get-current-user.decorator';
+import { RefreshTokenGuard } from 'src/common/guards/refresh-token.guard';
+import { UserDontExistException } from 'src/users/exceptions/user-dont-exist-exceptions';
+import { PasswordInvalidException } from 'src/users/exceptions/password-invalid-exception';
 
 @ApiTags('Authenticate')
 @Controller('auth')

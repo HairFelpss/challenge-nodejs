@@ -3,16 +3,15 @@ import { ConfigService } from '@nestjs/config';
 
 import * as argon from 'argon2';
 
-import { PasswordInvalidException } from 'src/users/exceptions/password-invalid-exception';
-import { UserDontExistException } from 'src/users/exceptions/user-dont-exist-exceptions';
-
-import { UsersRepository } from 'src/users/users.repository';
-
 import { AuthenticateDto } from './dto/authenticate.dto';
 import { UserNotAuthorizedException } from './exceptions/unauthorized-exceptions';
 import { AuthHelper } from './helpers/auth.helper';
 import { JwtPayload } from './types/jwtPayload.type';
 import { Tokens } from './types/tokens.type';
+
+import { PasswordInvalidException } from 'src/users/exceptions/password-invalid-exception';
+import { UserDontExistException } from 'src/users/exceptions/user-dont-exist-exceptions';
+import { UsersRepository } from 'src/users/users.repository';
 
 @Injectable()
 export class AuthService {

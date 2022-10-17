@@ -1,11 +1,7 @@
 import {
   Controller,
   Get,
-  Post,
-  Body,
-  Patch,
   Param,
-  Delete,
   ClassSerializerInterceptor,
   UseInterceptors,
   HttpCode,
@@ -13,14 +9,12 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiException } from '@nanogiants/nestjs-swagger-api-exception-decorator';
 
 import { StockQuoteService } from './stock-quote.service';
-import { CreateStockQuoteDto } from './dto/create-stock-quote.dto';
-import { UpdateStockQuoteDto } from './dto/update-stock-quote.dto';
+
 import { Public } from 'src/common/decorators/public.decorator';
-import { CreateStockQuoteResponseDto } from './dto/create-stock-quote-response.dto';
 import { StockQuoteEntity } from './entities/stock-quote.entity';
-import { ApiException } from '@nanogiants/nestjs-swagger-api-exception-decorator';
 
 @ApiTags('Stock Quote')
 @Controller('stock-quote')

@@ -1,17 +1,19 @@
 import { Injectable } from '@nestjs/common';
+import * as argon from 'argon2';
 
 import { UsersRepository } from './users.repository';
 
 import { User } from './entities/user.entity';
-import { UserModel } from './models/users.model';
+import { UserRegister } from './entities/user-register.entity';
 
-import * as argon from 'argon2';
+import { UserModel } from './models/users.model';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { UserRegister } from './entities/user-register.entity';
+
 import { UserExistsException } from './exceptions/user-exist-exceptions';
 import { UserDontExistException } from './exceptions/user-dont-exist-exceptions';
+
 import { UserNotAuthorizedException } from 'src/auth/exceptions/unauthorized-exceptions';
 
 @Injectable()
