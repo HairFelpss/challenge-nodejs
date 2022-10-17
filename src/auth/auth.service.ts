@@ -30,6 +30,7 @@ export class AuthService {
       'email',
       '_id',
       'role',
+      'hashedRt',
     ]);
 
     if (!user) throw new UserDontExistException();
